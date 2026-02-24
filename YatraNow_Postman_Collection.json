@@ -1,0 +1,402 @@
+{
+  "info": {
+    "name": "YatraNow API Collection",
+    "description": "Complete API collection for YatraNow Bus & Train Booking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/auth/register/user",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"john123\",\n  \"phoneNumber\": \"9876543210\",\n  \"confirmPassword\": \"john123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register Owner",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/auth/register/owner",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "ownerName",
+                  "value": "Test Owner",
+                  "type": "text"
+                },
+                {
+                  "key": "agencyName",
+                  "value": "Test Agency",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "owner@test.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "owner123",
+                  "type": "text"
+                },
+                {
+                  "key": "mobile",
+                  "value": "9876543210",
+                  "type": "text"
+                },
+                {
+                  "key": "agencyImage",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{admin@yatranow.com}\",\n  \"password\": \"admin123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Search Vehicles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/public/search?page=0&size=10&sortBy=price",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "price"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromLocation\": \"Mumbai\",\n  \"toLocation\": \"Pune\",\n  \"date\": \"2026-02-20\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Agency Image",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/public/images/agency/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/users?page=0&size=10",
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/admin/users/1"
+          }
+        },
+        {
+          "name": "Get All Owners",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/admin/owners?page=0&size=10"
+          }
+        },
+        {
+          "name": "Block/Unblock Owner",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/admin/owners/1/block"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Owner",
+      "item": [
+        {
+          "name": "Create Vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{owner_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/owner/vehicles",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicleType\": \"BUS\",\n  \"vehicleNumber\": \"MH-12-XY-5678\",\n  \"name\": \"Test Bus\",\n  \"busType\": \"SUPER_LUXURY\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{owner_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/owner/vehicles"
+          }
+        },
+        {
+          "name": "Create Route",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{owner_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/owner/routes",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromLocation\": \"Mumbai\",\n  \"toLocation\": \"Pune\",\n  \"distanceKm\": 150.0\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Schedule",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{owner_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/owner/schedules",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicleId\": 1,\n  \"routeId\": 1,\n  \"departureTime\": \"06:00:00\",\n  \"arrivalTime\": \"10:30:00\",\n  \"price\": 500.0,\n  \"scheduleDate\": \"2026-02-20\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{owner_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/owner/bookings"
+          }
+        },
+        {
+          "name": "Get My Complaints",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{owner_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/owner/complaints"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Book Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{base_url}}/api/user/bookings",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scheduleId\": 1,\n  \"seatNumber\": \"1A\",\n  \"passengerName\": \"John Doe\",\n  \"passengerAge\": 30,\n  \"passengerGender\": \"Male\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get My Bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/user/bookings"
+          }
+        },
+        {
+          "name": "Submit Complaint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{user_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/user/complaints",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "vehicleId",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "complaintText",
+                  "value": "Test complaint text",
+                  "type": "text"
+                },
+                {
+                  "key": "complaintImage",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "admin_token",
+      "value": ""
+    },
+    {
+      "key": "owner_token",
+      "value": ""
+    },
+    {
+      "key": "user_token",
+      "value": ""
+    }
+  ]
+}

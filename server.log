@@ -1,0 +1,1667 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.yatranow:yatranow-backend >--------------------
+[INFO] Building YatraNow 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.2:run (default-cli) > test-compile @ yatranow-backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ yatranow-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ yatranow-backend ---
+[INFO] Changes detected - recompiling the module! :input tree
+[INFO] Compiling 53 source files with javac [debug release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ yatranow-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\sures\OneDrive\Documents\Desktop\YatraNow - Backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ yatranow-backend ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.2:run (default-cli) < test-compile @ yatranow-backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.2:run (default-cli) @ yatranow-backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.2)
+
+2026-02-19 22:55:43 - Starting YatraNowApplication using Java 17.0.16 with PID 19244 (C:\Users\sures\OneDrive\Documents\Desktop\YatraNow - Backend\target\classes started by sures in C:\Users\sures\OneDrive\Documents\Desktop\YatraNow - Backend)
+2026-02-19 22:55:43 - Running with Spring Boot v3.2.2, Spring v6.1.3
+2026-02-19 22:55:43 - No active profile set, falling back to 1 default profile: "default"
+2026-02-19 22:55:45 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-19 22:55:45 - Finished Spring Data repository scanning in 88 ms. Found 9 JPA repository interfaces.
+2026-02-19 22:55:46 - Tomcat initialized with port 9090 (http)
+2026-02-19 22:55:46 - Starting service [Tomcat]
+2026-02-19 22:55:46 - Starting Servlet engine: [Apache Tomcat/10.1.18]
+2026-02-19 22:55:46 - Initializing Spring embedded WebApplicationContext
+2026-02-19 22:55:46 - Root WebApplicationContext: initialization completed in 2995 ms
+2026-02-19 22:55:46 - Filter 'jwtAuthenticationFilter' configured for use
+2026-02-19 22:55:46 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-19 22:55:46 - HHH000412: Hibernate ORM core version 6.4.1.Final
+2026-02-19 22:55:46 - HHH000026: Second-level cache disabled
+2026-02-19 22:55:47 - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-19 22:55:47 - HikariPool-1 - Starting...
+2026-02-19 22:55:47 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7bc2ae16
+2026-02-19 22:55:47 - HikariPool-1 - Start completed.
+2026-02-19 22:55:48 - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-19 22:55:49 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-19 22:55:49 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-19 22:55:50 - Hibernate is in classpath; If applicable, HQL parser will be used.
+Hibernate: 
+    select
+        count(*) 
+    from
+        admins a1_0
+Database already seeded. Skipping...
+2026-02-19 22:55:51 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-19 22:55:51 - 
+
+Using generated security password: 135123ca-51a5-4448-aebf-fc6ba4350336
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-19 22:55:51 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@46769bd6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5739b804, org.springframework.security.web.context.SecurityContextHolderFilter@4eef2522, org.springframework.security.web.header.HeaderWriterFilter@75ad7531, org.springframework.web.filter.CorsFilter@2f48adcc, org.springframework.security.web.authentication.logout.LogoutFilter@2b6282bb, com.yatranow.security.JwtAuthenticationFilter@7bd96822, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@598b15ba, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58453967, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6adee80f, org.springframework.security.web.session.SessionManagementFilter@4ad113d6, org.springframework.security.web.access.ExceptionTranslationFilter@5a6dd1e7, org.springframework.security.web.access.intercept.AuthorizationFilter@3ef8de39]
+2026-02-19 22:55:51 - Tomcat started on port 9090 (http) with context path ''
+2026-02-19 22:55:51 - Started YatraNowApplication in 9.166 seconds (process running for 9.779)
+2026-02-19 22:55:51 - Checking Admin account configuration...
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0 
+    where
+        a1_0.email=?
+2026-02-19 22:55:52 - Default admin (suresh@gmail.com) not found. Creating new admin.
+Hibernate: 
+    insert 
+    into
+        admins
+        (email, name, password, role) 
+    values
+        (?, ?, ?, ?)
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0
+2026-02-19 22:55:52 - Multiple admins found (2). Removing others to enforce single-admin policy.
+2026-02-19 22:55:52 - Deleting extra admin: admin@yatranow.com
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0 
+    where
+        a1_0.id=?
+Hibernate: 
+    delete 
+    from
+        admins 
+    where
+        id=?
+2026-02-19 22:55:52 - Admin configuration completed. Default admin is ready.
+2026-02-19 22:58:02 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-19 22:58:02 - Initializing Servlet 'dispatcherServlet'
+2026-02-19 22:58:02 - Completed initialization in 58 ms
+2026-02-19 22:58:02 - Securing GET /api/public/route-list
+2026-02-19 22:58:02 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:02 - Secured GET /api/public/route-list
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0
+2026-02-19 22:58:03 - Securing GET /api/public/routes
+2026-02-19 22:58:03 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:03 - Secured GET /api/public/routes
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.arrival_time,
+        s1_0.available_seats,
+        s1_0.departure_time,
+        s1_0.price,
+        s1_0.route_id,
+        s1_0.schedule_date,
+        s1_0.vehicle_id 
+    from
+        schedules s1_0 
+    where
+        s1_0.schedule_date>=?
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+2026-02-19 22:58:04 - Securing GET /api/public/search?from=Mumbai&to=Pune&date=2026-02-20
+2026-02-19 22:58:04 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:04 - Secured GET /api/public/search?from=Mumbai&to=Pune&date=2026-02-20
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.arrival_time,
+        s1_0.available_seats,
+        s1_0.departure_time,
+        s1_0.price,
+        s1_0.route_id,
+        s1_0.schedule_date,
+        s1_0.vehicle_id 
+    from
+        schedules s1_0 
+    join
+        routes r1_0 
+            on r1_0.id=s1_0.route_id 
+    where
+        lower(r1_0.from_location)=lower(?) 
+        and lower(r1_0.to_location)=lower(?) 
+        and s1_0.schedule_date=? 
+        and s1_0.available_seats>0 
+    order by
+        s1_0.price 
+    limit
+        ?, ?
+2026-02-19 22:58:04 - Securing GET /api/public/seats/1
+2026-02-19 22:58:04 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:04 - Secured GET /api/public/seats/1
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.passenger_age,
+        b1_0.passenger_gender,
+        b1_0.passenger_name,
+        b1_0.schedule_id,
+        b1_0.seat_number,
+        b1_0.status,
+        b1_0.user_id 
+    from
+        bookings b1_0 
+    where
+        b1_0.schedule_id=?
+2026-02-19 22:58:04 - Securing GET /api/public/images/agency/1
+2026-02-19 22:58:04 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:04 - Secured GET /api/public/images/agency/1
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+2026-02-19 22:58:04 - Securing POST /api/auth/login
+2026-02-19 22:58:04 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:04 - Secured POST /api/auth/login
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0 
+    where
+        a1_0.email=?
+2026-02-19 22:58:05 - Securing POST /api/auth/register/user
+2026-02-19 22:58:05 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:05 - Secured POST /api/auth/register/user
+Hibernate: 
+    select
+        u1_0.id 
+    from
+        users u1_0 
+    where
+        u1_0.email=? 
+    limit
+        ?
+Hibernate: 
+    insert 
+    into
+        users
+        (created_at, email, mobile, name, password, role) 
+    values
+        (?, ?, ?, ?, ?, ?)
+2026-02-19 22:58:05 - Securing POST /api/auth/login
+2026-02-19 22:58:05 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:05 - Secured POST /api/auth/login
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0 
+    where
+        a1_0.email=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.email=?
+2026-02-19 22:58:05 - Securing POST /api/auth/login
+2026-02-19 22:58:05 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:05 - Secured POST /api/auth/login
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0 
+    where
+        a1_0.email=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+2026-02-19 22:58:05 - Securing GET /api/admin/users
+2026-02-19 22:58:05 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 22:58:05 - Securing GET /api/admin/owners
+2026-02-19 22:58:05 - Secured GET /api/admin/owners
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    limit
+        ?, ?
+2026-02-19 22:58:06 - Securing PATCH /api/admin/owners/2/block
+2026-02-19 22:58:06 - Secured PATCH /api/admin/owners/2/block
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    update
+        owners 
+    set
+        agency_image=?,
+        agency_name=?,
+        email=?,
+        is_blocked=?,
+        mobile=?,
+        owner_name=?,
+        password=?,
+        role=? 
+    where
+        id=?
+2026-02-19 22:58:06 - Securing PATCH /api/admin/owners/2/block
+2026-02-19 22:58:06 - Secured PATCH /api/admin/owners/2/block
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    update
+        owners 
+    set
+        agency_image=?,
+        agency_name=?,
+        email=?,
+        is_blocked=?,
+        mobile=?,
+        owner_name=?,
+        password=?,
+        role=? 
+    where
+        id=?
+2026-02-19 22:58:06 - Securing GET /api/admin/users
+2026-02-19 22:58:06 - Responding with 403 status code
+2026-02-19 22:58:06 - Securing GET /error
+2026-02-19 22:58:06 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:06 - Pre-authenticated entry point called. Rejecting access
+2026-02-19 22:58:06 - Securing GET /api/owner/vehicles
+2026-02-19 22:58:06 - Secured GET /api/owner/vehicles
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.owner_id=?
+2026-02-19 22:58:06 - Securing GET /api/owner/routes
+2026-02-19 22:58:06 - Secured GET /api/owner/routes
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0
+2026-02-19 22:58:06 - Securing GET /api/owner/bookings
+2026-02-19 22:58:06 - Secured GET /api/owner/bookings
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.owner_id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.passenger_age,
+        b1_0.passenger_gender,
+        b1_0.passenger_name,
+        b1_0.schedule_id,
+        b1_0.seat_number,
+        b1_0.status,
+        b1_0.user_id 
+    from
+        bookings b1_0 
+    join
+        schedules s1_0 
+            on s1_0.id=b1_0.schedule_id 
+    where
+        s1_0.vehicle_id in (?)
+2026-02-19 22:58:06 - Securing GET /api/owner/complaints
+2026-02-19 22:58:06 - Secured GET /api/owner/complaints
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.owner_id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.complaint_image,
+        c1_0.complaint_text,
+        c1_0.created_at,
+        c1_0.user_id,
+        c1_0.vehicle_id 
+    from
+        complaints c1_0 
+    where
+        c1_0.vehicle_id in (?)
+2026-02-19 22:58:06 - Securing GET /api/owner/schedules
+2026-02-19 22:58:06 - Secured GET /api/owner/schedules
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.owner_id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.arrival_time,
+        s1_0.available_seats,
+        s1_0.departure_time,
+        s1_0.price,
+        s1_0.route_id,
+        s1_0.schedule_date,
+        s1_0.vehicle_id 
+    from
+        schedules s1_0 
+    where
+        s1_0.vehicle_id in (?)
+2026-02-19 22:58:06 - Securing POST /api/owner/routes
+2026-02-19 22:58:06 - Secured POST /api/owner/routes
+Hibernate: 
+    insert 
+    into
+        routes
+        (distance_km, from_location, to_location) 
+    values
+        (?, ?, ?)
+2026-02-19 22:58:06 - Securing PUT /api/owner/routes/21
+2026-02-19 22:58:06 - Secured PUT /api/owner/routes/21
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    update
+        routes 
+    set
+        distance_km=?,
+        from_location=?,
+        to_location=? 
+    where
+        id=?
+2026-02-19 22:58:06 - Securing POST /api/owner/schedules
+2026-02-19 22:58:06 - Secured POST /api/owner/schedules
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.bus_type,
+        v1_0.created_at,
+        v1_0.name,
+        v1_0.owner_id,
+        v1_0.total_seats,
+        v1_0.vehicle_number,
+        v1_0.vehicle_type 
+    from
+        vehicles v1_0 
+    where
+        v1_0.id=?
+Hibernate: 
+    select
+        count(*) 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    insert 
+    into
+        schedules
+        (arrival_time, available_seats, departure_time, price, route_id, schedule_date, vehicle_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+2026-02-19 22:58:06 - Securing DELETE /api/owner/routes/21
+2026-02-19 22:58:06 - Secured DELETE /api/owner/routes/21
+Hibernate: 
+    select
+        count(*) 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.arrival_time,
+        s1_0.available_seats,
+        s1_0.departure_time,
+        s1_0.price,
+        s1_0.route_id,
+        s1_0.schedule_date,
+        s1_0.vehicle_id 
+    from
+        schedules s1_0 
+    where
+        s1_0.route_id=?
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.passenger_age,
+        b1_0.passenger_gender,
+        b1_0.passenger_name,
+        b1_0.schedule_id,
+        b1_0.seat_number,
+        b1_0.status,
+        b1_0.user_id 
+    from
+        bookings b1_0 
+    where
+        b1_0.schedule_id in (?)
+Hibernate: 
+    select
+        r1_0.id,
+        r1_0.distance_km,
+        r1_0.from_location,
+        r1_0.to_location 
+    from
+        routes r1_0 
+    where
+        r1_0.id=?
+Hibernate: 
+    delete 
+    from
+        schedules 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        routes 
+    where
+        id=?
+2026-02-19 22:58:06 - Securing GET /api/user/bookings
+2026-02-19 22:58:06 - Secured GET /api/user/bookings
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.passenger_age,
+        b1_0.passenger_gender,
+        b1_0.passenger_name,
+        b1_0.schedule_id,
+        b1_0.seat_number,
+        b1_0.status,
+        b1_0.user_id 
+    from
+        bookings b1_0 
+    where
+        b1_0.user_id=?
+2026-02-19 22:58:06 - Securing POST /api/user/bookings
+2026-02-19 22:58:06 - Secured POST /api/user/bookings
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.arrival_time,
+        s1_0.available_seats,
+        s1_0.departure_time,
+        s1_0.price,
+        s1_0.route_id,
+        s1_0.schedule_date,
+        s1_0.vehicle_id 
+    from
+        schedules s1_0 
+    where
+        s1_0.id=?
+2026-02-19 22:58:06 - Securing POST /api/user/bookings
+2026-02-19 22:58:06 - Secured POST /api/user/bookings
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.arrival_time,
+        s1_0.available_seats,
+        s1_0.departure_time,
+        s1_0.price,
+        s1_0.route_id,
+        s1_0.schedule_date,
+        s1_0.vehicle_id 
+    from
+        schedules s1_0 
+    where
+        s1_0.id=?
+2026-02-19 22:58:07 - Securing GET /api/user/bookings
+2026-02-19 22:58:07 - Secured GET /api/user/bookings
+Hibernate: 
+    select
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.passenger_age,
+        b1_0.passenger_gender,
+        b1_0.passenger_name,
+        b1_0.schedule_id,
+        b1_0.seat_number,
+        b1_0.status,
+        b1_0.user_id 
+    from
+        bookings b1_0 
+    where
+        b1_0.user_id=?
+2026-02-19 22:58:07 - Securing GET /api/admin/users
+2026-02-19 22:58:07 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:07 - Pre-authenticated entry point called. Rejecting access
+2026-02-19 22:58:07 - Securing GET /error
+2026-02-19 22:58:07 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:07 - Pre-authenticated entry point called. Rejecting access
+2026-02-19 22:58:07 - Securing GET /api/user/bookings
+2026-02-19 22:58:07 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:07 - Pre-authenticated entry point called. Rejecting access
+2026-02-19 22:58:07 - Securing GET /error
+2026-02-19 22:58:07 - Set SecurityContextHolder to anonymous SecurityContext
+2026-02-19 22:58:07 - Pre-authenticated entry point called. Rejecting access
+2026-02-19 23:06:32 - Securing OPTIONS /api/auth/login
+2026-02-19 23:06:32 - Securing POST /api/auth/login
+2026-02-19 23:06:32 - Secured POST /api/auth/login
+Hibernate: 
+    select
+        a1_0.id,
+        a1_0.email,
+        a1_0.name,
+        a1_0.password,
+        a1_0.role 
+    from
+        admins a1_0 
+    where
+        a1_0.email=?
+2026-02-19 23:11:44 - Securing OPTIONS /api/admin/owners
+2026-02-19 23:11:44 - Securing OPTIONS /api/admin/users
+2026-02-19 23:11:44 - Securing GET /api/admin/owners
+2026-02-19 23:11:45 - Securing GET /api/admin/users
+2026-02-19 23:11:45 - Secured GET /api/admin/users
+2026-02-19 23:11:45 - Secured GET /api/admin/owners
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:17:09 - Securing OPTIONS /api/admin/owners
+2026-02-19 23:17:09 - Securing OPTIONS /api/admin/users
+2026-02-19 23:17:09 - Securing GET /api/admin/users
+2026-02-19 23:17:09 - Securing GET /api/admin/owners
+2026-02-19 23:17:09 - Secured GET /api/admin/owners
+2026-02-19 23:17:09 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:20:25 - Securing OPTIONS /api/admin/users
+2026-02-19 23:20:25 - Securing OPTIONS /api/admin/owners
+2026-02-19 23:20:25 - Securing GET /api/admin/owners
+2026-02-19 23:20:25 - Securing GET /api/admin/users
+2026-02-19 23:20:25 - Secured GET /api/admin/owners
+2026-02-19 23:20:25 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:20:42 - Securing OPTIONS /api/admin/users/1
+2026-02-19 23:20:42 - Securing DELETE /api/admin/users/1
+2026-02-19 23:20:42 - Secured DELETE /api/admin/users/1
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:20:42 - Securing OPTIONS /api/admin/users
+2026-02-19 23:20:42 - Securing GET /api/admin/users
+2026-02-19 23:20:42 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:20:46 - Securing OPTIONS /api/admin/users/2
+2026-02-19 23:20:46 - Securing DELETE /api/admin/users/2
+2026-02-19 23:20:46 - Secured DELETE /api/admin/users/2
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:20:46 - Securing GET /api/admin/users
+2026-02-19 23:20:47 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:20:56 - Securing OPTIONS /api/admin/users/6
+2026-02-19 23:20:56 - Securing DELETE /api/admin/users/6
+2026-02-19 23:20:56 - Secured DELETE /api/admin/users/6
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:20:56 - Securing OPTIONS /api/admin/users
+2026-02-19 23:20:56 - Securing GET /api/admin/users
+2026-02-19 23:20:56 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:21:00 - Securing OPTIONS /api/admin/users/7
+2026-02-19 23:21:00 - Securing DELETE /api/admin/users/7
+2026-02-19 23:21:00 - Secured DELETE /api/admin/users/7
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:00 - Securing GET /api/admin/users
+2026-02-19 23:21:00 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(u1_0.id) 
+    from
+        users u1_0
+2026-02-19 23:21:05 - Securing OPTIONS /api/admin/users/8
+2026-02-19 23:21:05 - Securing DELETE /api/admin/users/8
+2026-02-19 23:21:05 - Secured DELETE /api/admin/users/8
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:05 - Securing OPTIONS /api/admin/users
+2026-02-19 23:21:05 - Securing GET /api/admin/users
+2026-02-19 23:21:05 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:21:08 - Securing OPTIONS /api/admin/users/9
+2026-02-19 23:21:08 - Securing DELETE /api/admin/users/9
+2026-02-19 23:21:08 - Secured DELETE /api/admin/users/9
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:09 - Securing GET /api/admin/users
+2026-02-19 23:21:09 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:21:17 - Securing OPTIONS /api/admin/users/10
+2026-02-19 23:21:17 - Securing DELETE /api/admin/users/10
+2026-02-19 23:21:17 - Secured DELETE /api/admin/users/10
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:17 - Securing OPTIONS /api/admin/users
+2026-02-19 23:21:17 - Securing GET /api/admin/users
+2026-02-19 23:21:17 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:21:22 - Securing OPTIONS /api/admin/users/11
+2026-02-19 23:21:22 - Securing DELETE /api/admin/users/11
+2026-02-19 23:21:22 - Secured DELETE /api/admin/users/11
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:22 - Securing OPTIONS /api/admin/users
+2026-02-19 23:21:22 - Securing GET /api/admin/users
+2026-02-19 23:21:22 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:21:29 - Securing OPTIONS /api/admin/users/12
+2026-02-19 23:21:29 - Securing DELETE /api/admin/users/12
+2026-02-19 23:21:29 - Secured DELETE /api/admin/users/12
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:29 - Securing OPTIONS /api/admin/users
+2026-02-19 23:21:29 - Securing GET /api/admin/users
+2026-02-19 23:21:29 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:21:33 - Securing OPTIONS /api/admin/users/13
+2026-02-19 23:21:33 - Securing DELETE /api/admin/users/13
+2026-02-19 23:21:33 - Secured DELETE /api/admin/users/13
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:33 - Securing GET /api/admin/users
+2026-02-19 23:21:33 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:21:37 - Securing OPTIONS /api/admin/users/14
+2026-02-19 23:21:37 - Securing DELETE /api/admin/users/14
+2026-02-19 23:21:37 - Secured DELETE /api/admin/users/14
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    where
+        u1_0.id=?
+Hibernate: 
+    delete 
+    from
+        users 
+    where
+        id=?
+2026-02-19 23:21:37 - Securing OPTIONS /api/admin/users
+2026-02-19 23:21:37 - Securing GET /api/admin/users
+2026-02-19 23:21:37 - Secured GET /api/admin/users
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.mobile,
+        u1_0.name,
+        u1_0.password,
+        u1_0.role 
+    from
+        users u1_0 
+    limit
+        ?, ?
+2026-02-19 23:22:30 - Securing OPTIONS /api/admin/owners/1/toggle-status
+2026-02-19 23:22:30 - Securing PUT /api/admin/owners/1/toggle-status
+2026-02-19 23:22:30 - Secured PUT /api/admin/owners/1/toggle-status
+2026-02-19 23:22:37 - Securing OPTIONS /api/admin/owners/1
+2026-02-19 23:22:37 - Securing DELETE /api/admin/owners/1
+2026-02-19 23:22:37 - Secured DELETE /api/admin/owners/1
+Hibernate: 
+    select
+        count(*) 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    select
+        o1_0.id,
+        o1_0.agency_image,
+        o1_0.agency_name,
+        o1_0.created_at,
+        o1_0.email,
+        o1_0.is_blocked,
+        o1_0.mobile,
+        o1_0.owner_name,
+        o1_0.password,
+        o1_0.role 
+    from
+        owners o1_0 
+    where
+        o1_0.id=?
+Hibernate: 
+    delete 
+    from
+        owners 
+    where
+        id=?
+2026-02-19 23:22:37 - SQL Error: 1451, SQLState: 23000
+2026-02-19 23:22:37 - Cannot delete or update a parent row: a foreign key constraint fails (`yatranow`.`vehicles`, CONSTRAINT `FK9mro2yegbtqmqwueeq9lyrmrj` FOREIGN KEY (`owner_id`) REFERENCES `owners` (`id`))
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  49:50 min
+[INFO] Finished at: 2026-02-19T23:45:21+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.2.2:run (default-cli) on project yatranow-backend: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
