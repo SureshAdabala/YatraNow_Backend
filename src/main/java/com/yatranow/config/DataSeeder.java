@@ -26,35 +26,41 @@ public class DataSeeder {
 
     @PostConstruct
     public void seedData() {
-        // Seed only if database is empty
-        if (adminRepository.count() > 0) {
-            System.out.println("Database already seeded. Skipping...");
-            return;
+        long adminCount = adminRepository.count();
+        long routeCount = routeRepository.count();
+        long scheduleCount = scheduleRepository.count();
+
+        System.out.println("Seeding diagnostic - Admins: " + adminCount + ", Routes: " + routeCount + ", Schedules: "
+                + scheduleCount);
+
+        // Seed Admin if missing
+        if (adminCount == 0) {
+            System.out.println("No admin found. Creating default admin...");
+            Admin admin = new Admin();
+            admin.setName("System Admin");
+            admin.setEmail("admin@yatranow.com");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setRole("ADMIN");
+            adminRepository.save(admin);
         }
 
-        System.out.println("Starting database seeding...");
+        // Check if we have any future schedules
+        long futureSchedules = scheduleRepository.findByScheduleDateGreaterThanEqual(LocalDate.now()).size();
+        System.out.println("Future schedules count: " + futureSchedules);
 
-        // Create Admin
-        Admin admin = new Admin();
-        admin.setName("System Admin");
-        admin.setEmail("admin@yatranow.com");
-        admin.setPassword(passwordEncoder.encode("admin123"));
-        admin.setRole("ADMIN");
-        adminRepository.save(admin);
+        if (futureSchedules == 0) {
+            System.out.println("No future schedules found. Seeding new schedules...");
 
-        // Create Sample Owners
-        List<Owner> owners = createSampleOwners();
+            List<Route> routes = routeRepository.count() == 0 ? createSampleRoutes() : routeRepository.findAll();
+            List<Owner> owners = ownerRepository.count() == 0 ? createSampleOwners() : ownerRepository.findAll();
+            List<Vehicle> vehicles = vehicleRepository.count() == 0 ? createSampleVehicles(owners)
+                    : vehicleRepository.findAll();
 
-        // Create Sample Vehicles with auto-generated seats
-        List<Vehicle> vehicles = createSampleVehicles(owners);
+            createSampleSchedules(vehicles, routes);
+            System.out.println("Future schedules seeded successfully.");
+        }
 
-        // Create Sample Routes
-        List<Route> routes = createSampleRoutes();
-
-        // Create Sample Schedules
-        createSampleSchedules(vehicles, routes);
-
-        System.out.println("Database seeding completed successfully!");
+        System.out.println("Database seeding check completed.");
     }
 
     private List<Owner> createSampleOwners() {

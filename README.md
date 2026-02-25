@@ -83,7 +83,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-The application will start on `http://localhost:8080`
+The application will start on `http://localhost:9090`
 
 ### Method 2: Using JAR (Production)
 ```bash
@@ -96,7 +96,7 @@ java -jar target/yatranow-backend-1.0.0.jar
 
 ## Seed Data
 The application automatically seeds sample data on first startup:
-- **Admin**: `admin@yatranow.com` / `admin123`
+- **Admin**: `suresh@gmail.com` / `Suresh@55`
 - **5 Sample Owners** with agencies
 - **6 Vehicles** (4 buses, 2 trains) with auto-generated seats
 - **10 Popular Routes** (Mumbai-Pune, Delhi-Jaipur, etc.)
