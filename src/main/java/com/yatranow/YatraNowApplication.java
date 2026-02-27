@@ -10,5 +10,6 @@ public class YatraNowApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(YatraNowApplication.class, args);
+        System.out.println("Your Backend is Now Running................");
     }
 }
