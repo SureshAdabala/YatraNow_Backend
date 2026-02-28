@@ -37,6 +37,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Allow CORS preflight OPTIONS requests without authentication
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         // Public endpoints
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/public/search").permitAll()
@@ -64,7 +67,9 @@ public class SecurityConfig {
                 "https://yatra-now.vercel.app",
                 "http://localhost:3000",
                 "http://localhost:5173",
+                "http://localhost:7890",
                 "http://localhost:9090"));
+        configuration.setAllowCredentials(true);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
