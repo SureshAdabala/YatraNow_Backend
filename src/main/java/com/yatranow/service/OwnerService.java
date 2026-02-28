@@ -235,13 +235,56 @@ public class OwnerService {
         return scheduleRepository.save(schedule);
     }
 
-    public List<Booking> getMyBookings(Long ownerId) {
+    public List<com.yatranow.dto.BookingResponse> getMyBookings(Long ownerId) {
         List<Long> vehicleIds = vehicleRepository.findByOwnerId(ownerId)
                 .stream()
                 .map(Vehicle::getId)
                 .toList();
 
-        return bookingRepository.findByVehicleIds(vehicleIds);
+        List<Booking> bookings = bookingRepository.findByVehicleIds(vehicleIds);
+
+        return bookings.stream().map(b -> {
+            Schedule schedule = b.getSchedule();
+            Route route = schedule != null
+                    ? routeRepository.findById(schedule.getRouteId()).orElse(null)
+                    : null;
+
+            String fromLocation = route != null ? route.getFromLocation() : "-";
+            String toLocation = route != null ? route.getToLocation() : "-";
+            Double price = schedule != null ? schedule.getPrice() : null;
+            String departure = schedule != null && schedule.getDepartureTime() != null
+                    ? schedule.getDepartureTime().toString()
+                    : null;
+            String arrival = schedule != null && schedule.getArrivalTime() != null
+                    ? schedule.getArrivalTime().toString()
+                    : null;
+            String vehicleName = null;
+            String vehicleNumber = null;
+            if (schedule != null) {
+                var vehicle = vehicleRepository.findById(schedule.getVehicleId()).orElse(null);
+                if (vehicle != null) {
+                    vehicleName = vehicle.getName();
+                    vehicleNumber = vehicle.getVehicleNumber();
+                }
+            }
+
+            return new com.yatranow.dto.BookingResponse(
+                    b.getId(),
+                    b.getScheduleId(),
+                    b.getSeatNumber(),
+                    b.getPassengerName(),
+                    b.getPassengerAge(),
+                    b.getPassengerGender(),
+                    vehicleName,
+                    vehicleNumber,
+                    fromLocation,
+                    toLocation,
+                    departure,
+                    arrival,
+                    price,
+                    b.getBookingDate(),
+                    b.getStatus() != null ? b.getStatus().name() : "CONFIRMED");
+        }).toList();
     }
 
     public List<Complaint> getMyComplaints(Long ownerId) {

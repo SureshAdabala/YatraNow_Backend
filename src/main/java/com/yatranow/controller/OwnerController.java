@@ -89,9 +89,9 @@ public class OwnerController {
     }
 
     @GetMapping("/bookings")
-    public ResponseEntity<List<Booking>> getMyBookings(HttpServletRequest httpRequest) {
+    public ResponseEntity<List<com.yatranow.dto.BookingResponse>> getMyBookings(HttpServletRequest httpRequest) {
         Long ownerId = (Long) httpRequest.getAttribute("userId");
-        List<Booking> bookings = ownerService.getMyBookings(ownerId);
+        List<com.yatranow.dto.BookingResponse> bookings = ownerService.getMyBookings(ownerId);
         return ResponseEntity.ok(bookings);
     }
 
