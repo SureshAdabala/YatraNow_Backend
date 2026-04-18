@@ -1,6 +1,7 @@
 package com.yatranow.config;
 
 import com.yatranow.security.JwtAuthenticationFilter;
+import com.yatranow.security.OAuth2AuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,10 +37,17 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // OAuth2 login needs a session briefly to complete the redirect flow,
+                // so we use IF_REQUIRED instead of STATELESS.
+                // The JWTs themselves remain stateless.
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth -> auth
                         // Allow CORS preflight OPTIONS requests without authentication
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // OAuth2 login endpoints
+                        .requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
 
                         // Public endpoints
                         .requestMatchers("/api/auth/**").permitAll()
@@ -55,6 +64,9 @@ public class SecurityConfig {
 
                         // All other requests must be authenticated
                         .anyRequest().authenticated())
+                // Enable OAuth2 Login
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(oAuth2AuthenticationSuccessHandler))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -67,6 +79,8 @@ public class SecurityConfig {
                 "https://yatra-now.vercel.app",
                 "http://localhost:3000",
                 "http://localhost:5173",
+                "http://localhost:5500",
+                "http://127.0.0.1:5500",
                 "http://localhost:7890",
                 "http://localhost:9090"));
         configuration.setAllowCredentials(true);

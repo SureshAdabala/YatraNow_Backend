@@ -25,17 +25,20 @@ public class User {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String password;
 
-    @Column(nullable = false, length = 15)
+    @Column(length = 15)
     private String mobile;
 
     @Column(nullable = false, length = 20)
     private String role = "USER";
 
-    @Column(name = "is_blocked", nullable = false)
+    @Column(name = "is_blocked")
     private Boolean isBlocked = false;
+
+    @Column(name = "auth_provider", length = 20)
+    private String authProvider = "LOCAL"; // LOCAL, GOOGLE, GITHUB
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

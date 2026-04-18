@@ -110,6 +110,10 @@ public class AuthService {
             if (user.getIsBlocked()) {
                 throw new OwnerBlockedException("Your account has been blocked by admin");
             }
+            // OAuth2 users have no password — reject password login
+            if (user.getPassword() == null) {
+                throw new BadCredentialsException("This account uses " + user.getAuthProvider() + " login. Please sign in with " + user.getAuthProvider() + ".");
+            }
             if (passwordEncoder.matches(request.password(), user.getPassword())) {
                 String token = jwtUtil.generateToken(user.getEmail(), user.getRole(), user.getId());
                 return new AuthResponse(token, user.getRole(), user.getName(), user.getEmail(), user.getId());

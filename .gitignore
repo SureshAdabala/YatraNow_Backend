@@ -1,1 +1,4 @@
 /target/
+
+# Prevent secrets from being pushed to GitHub
+src/main/resources/application.properties

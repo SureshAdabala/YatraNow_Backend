@@ -19,7 +19,7 @@ WORKDIR /app
 # Copy the built JAR from Stage 1
 COPY --from=build /app/target/yatranow-backend-1.0.0.jar app.jar
 
-# Render injects PORT; fallback to 9090 for local runs
-EXPOSE 9090
+# Render injects PORT=10000 by default
+EXPOSE 10000
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
