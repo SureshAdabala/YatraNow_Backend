@@ -6,10 +6,12 @@ import com.razorpay.RazorpayException;
 import com.yatranow.dto.*;
 import com.yatranow.entity.Booking;
 import com.yatranow.entity.Payment;
+import com.yatranow.entity.User;
 import com.yatranow.exception.ResourceNotFoundException;
 import com.yatranow.repository.BookingRepository;
 import com.yatranow.repository.PaymentRepository;
 import com.yatranow.repository.ScheduleRepository;
+import com.yatranow.repository.UserRepository;
 import com.yatranow.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -47,6 +51,8 @@ public class PaymentService {
     private final ScheduleRepository scheduleRepository;
     private final VehicleRepository vehicleRepository;
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final EmailService emailService;
 
     // ─────────────────────────────────────────────────────────────────────────
     // 1. CREATE ORDER
@@ -144,6 +150,7 @@ public class PaymentService {
 
         // ── 3. Create bookings for each passenger ──
         List<Long> bookingIds = new ArrayList<>();
+        List<BookingResponse> bookingResponses = new ArrayList<>();
 
         for (PaymentVerifyRequest.PassengerDetail passenger : request.passengers()) {
             BookingRequest bookingRequest = new BookingRequest(
@@ -157,6 +164,7 @@ public class PaymentService {
             try {
                 BookingResponse response = userService.bookTicket(bookingRequest, userId);
                 bookingIds.add(response.bookingId());
+                bookingResponses.add(response);
                 log.info("Booking created: {} for seat {} user {}", response.bookingId(), passenger.seatNumber(), userId);
             } catch (Exception e) {
                 log.error("Error creating booking for seat {}: {}", passenger.seatNumber(), e.getMessage());
@@ -173,6 +181,19 @@ public class PaymentService {
 
         log.info("Payment {} verified and {} booking(s) created for user {}",
                 request.razorpayPaymentId(), bookingIds.size(), userId);
+                
+        // ── 5. Trigger Email Asynchronously ──
+        if (!bookingResponses.isEmpty()) {
+            CompletableFuture.runAsync(() -> {
+                try {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new ResourceNotFoundException("User not found for email"));
+                    emailService.sendBookingConfirmation(user, request.razorpayOrderId(), bookingResponses);
+                } catch (Exception e) {
+                    log.error("Fail to run email task asynchronously for user {}: {}", userId, e.getMessage());
+                }
+            });
+        }
 
         return new PaymentVerifyResponse(
                 true,
