@@ -87,7 +87,7 @@ public class PaymentService {
             // ── Save Payment record (status = CREATED) ──
             Payment payment = new Payment();
             payment.setRazorpayOrderId(orderId);
-            payment.setAmount(request.amountInPaise());
+            payment.setAmount(request.amountInPaise() / 100.0); // Store in Rupees in DB
             payment.setCurrency("INR");
             payment.setStatus(Payment.PaymentStatus.CREATED);
             payment.setReceiptId(receiptId);

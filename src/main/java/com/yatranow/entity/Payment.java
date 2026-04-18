@@ -35,9 +35,9 @@ public class Payment {
     @Column(name = "razorpay_signature", length = 512)
     private String razorpaySignature;
 
-    /** Amount in paise (1 INR = 100 paise) */
+    /** Amount in INR (Rupees) */
     @Column(nullable = false)
-    private Long amount;
+    private Double amount;
 
     @Column(length = 10)
     private String currency = "INR";
