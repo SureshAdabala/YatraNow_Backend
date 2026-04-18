@@ -105,8 +105,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         User user = new User();
         user.setEmail(email);
         user.setName(name != null ? name : email.split("@")[0]);
-        user.setPassword(null);          // No password for OAuth2 users
-        user.setMobile(null);            // No mobile for OAuth2 users
+        user.setPassword("OAUTH2_DUMMY_PWD");    // Dummy password to pass MySQL NOT NULL constraint
+        user.setMobile("OAUTH2_USER");           // Dummy mobile to pass MySQL NOT NULL constraint
         user.setRole("USER");            // ← Always USER; Admin registers manually
         user.setIsBlocked(false);
         user.setAuthProvider(provider);
