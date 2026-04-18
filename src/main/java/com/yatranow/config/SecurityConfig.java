@@ -61,6 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/owner/**").hasRole("OWNER")
                         .requestMatchers("/api/user/**").hasRole("USER")
+                        .requestMatchers("/api/payment/**").hasRole("USER")
 
                         // All other requests must be authenticated
                         .anyRequest().authenticated())

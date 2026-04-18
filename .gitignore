@@ -1,2 +1,34 @@
+# Build output
 /target/
+*.class
+*.jar
+*.war
 
+# Maven
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# IDE files
+.idea/
+*.iml
+.eclipse/
+.classpath
+.project
+.settings/
+.vscode/
+*.factorypath
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ─────────────────────────────────────────────────
+# LOCAL SECRETS — NEVER commit these to GitHub
+# ─────────────────────────────────────────────────
+# Contains root/root DB creds + Razorpay keys
+src/main/resources/application-local.properties
