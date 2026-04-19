@@ -44,7 +44,7 @@ public class UserService {
 
     public List<SearchResponse> getAllSchedules() {
         // Only return schedules from today onwards
-        List<Schedule> schedules = scheduleRepository.findByScheduleDateGreaterThanEqual(LocalDate.now());
+        List<Schedule> schedules = scheduleRepository.findSchedulesWithDetailsFromDate(LocalDate.now());
         return schedules.stream()
                 .map(this::convertToSearchResponse)
                 .collect(Collectors.toList());
@@ -58,14 +58,20 @@ public class UserService {
     }
 
     private SearchResponse convertToSearchResponse(Schedule schedule) {
-        Vehicle vehicle = vehicleRepository.findById(schedule.getVehicleId())
-                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
+        Vehicle vehicle = schedule.getVehicle();
+        if (vehicle == null) {
+             throw new ResourceNotFoundException("Vehicle not found");
+        }
 
-        Route route = routeRepository.findById(schedule.getRouteId())
-                .orElseThrow(() -> new ResourceNotFoundException("Route not found"));
+        Route route = schedule.getRoute();
+        if (route == null) {
+            throw new ResourceNotFoundException("Route not found");
+        }
 
-        Owner owner = ownerRepository.findById(vehicle.getOwnerId())
-                .orElseThrow(() -> new ResourceNotFoundException("Owner not found"));
+        Owner owner = vehicle.getOwner();
+        if (owner == null) {
+            throw new ResourceNotFoundException("Owner not found");
+        }
 
         return new SearchResponse(
                 schedule.getId(),

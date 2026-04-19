@@ -20,8 +20,17 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
         List<Schedule> findByScheduleDate(LocalDate scheduleDate);
 
-        @Query("""
+        @Query(value = """
                         SELECT s FROM Schedule s
+                        JOIN FETCH s.vehicle v
+                        JOIN FETCH s.route r
+                        JOIN FETCH v.owner o
+                        WHERE LOWER(r.fromLocation) = LOWER(:fromLocation)
+                        AND LOWER(r.toLocation) = LOWER(:toLocation)
+                        AND s.scheduleDate = :scheduleDate
+                        AND s.availableSeats > 0
+                        """, countQuery = """
+                        SELECT count(s) FROM Schedule s
                         JOIN s.route r
                         WHERE LOWER(r.fromLocation) = LOWER(:fromLocation)
                         AND LOWER(r.toLocation) = LOWER(:toLocation)
@@ -39,6 +48,15 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
         // Fetch schedules for today or future
         List<Schedule> findByScheduleDateGreaterThanEqual(LocalDate date);
+
+        @Query("""
+                SELECT s FROM Schedule s
+                JOIN FETCH s.vehicle v
+                JOIN FETCH s.route r
+                JOIN FETCH v.owner o
+                WHERE s.scheduleDate >= :date
+                """)
+        List<Schedule> findSchedulesWithDetailsFromDate(@Param("date") LocalDate date);
 
         // Find past schedules for cleanup
         List<Schedule> findByScheduleDateBefore(LocalDate date);
