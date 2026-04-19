@@ -28,6 +28,10 @@ public class UserService {
     private final RouteRepository routeRepository;
     private final OwnerRepository ownerRepository;
 
+    // ── Train booking flow repositories ──
+    private final BogieRepository bogieRepository;
+    private final TrainBookingSelectionRepository trainBookingSelectionRepository;
+
     public Page<SearchResponse> searchVehicles(SearchRequest request, Pageable pageable) {
         Page<Schedule> schedules = scheduleRepository.searchSchedules(
                 request.fromLocation(),
@@ -172,5 +176,77 @@ public class UserService {
         complaint.setComplaintImage(complaintImageBytes);
 
         return complaintRepository.save(complaint);
+    }
+
+    // ── Train Booking Flow ────────────────────────────────────────────────────
+
+    /**
+     * Returns available bogies for a given vehicle and compartment type.
+     * Called after the user selects a compartment (2S / Sleeper / AC).
+     *
+     * @param vehicleId       ID of the train vehicle from the search result
+     * @param compartmentType String name of the compartment enum value
+     * @return list of available bogies as BogieResponse DTOs
+     */
+    public List<BogieResponse> getBogiesByVehicleAndCompartment(Long vehicleId, String compartmentType) {
+        Bogie.CompartmentType type;
+        try {
+            type = Bogie.CompartmentType.valueOf(compartmentType.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    "Invalid compartment type: '" + compartmentType +
+                    "'. Allowed values: SECOND_SITTING, SLEEPER, AC");
+        }
+
+        List<Bogie> bogies = bogieRepository
+                .findByVehicleIdAndCompartmentTypeAndIsAvailableTrue(vehicleId, type);
+
+        return bogies.stream()
+                .map(b -> new BogieResponse(
+                        b.getId(),
+                        b.getBogieNumber(),
+                        b.getCompartmentType().name(),
+                        b.getTotalSeats()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Persists the user's bogie selection for a train schedule.
+     * This record links the user, schedule, compartment type, and bogie chosen.
+     *
+     * @param request TrainSelectionRequest carrying scheduleId, bogieId, etc.
+     * @param userId  Authenticated user's ID from the JWT filter
+     * @return TrainSelectionResponse with the generated selectionId
+     */
+    @Transactional
+    public TrainSelectionResponse saveTrainSelection(TrainSelectionRequest request, Long userId) {
+        // Validate that the schedule exists
+        if (!scheduleRepository.existsById(request.scheduleId())) {
+            throw new ResourceNotFoundException("Schedule not found: " + request.scheduleId());
+        }
+
+        // Validate that the bogie exists and is available
+        Bogie bogie = bogieRepository.findById(request.bogieId())
+                .orElseThrow(() -> new ResourceNotFoundException("Bogie not found: " + request.bogieId()));
+
+        if (!Boolean.TRUE.equals(bogie.getIsAvailable())) {
+            throw new IllegalStateException("Selected bogie is not available.");
+        }
+
+        TrainBookingSelection selection = new TrainBookingSelection();
+        selection.setUserId(userId);
+        selection.setScheduleId(request.scheduleId());
+        selection.setBogieId(request.bogieId());
+        selection.setCompartmentType(request.compartmentType());
+        selection.setBogieNumber(request.bogieNumber());
+
+        selection = trainBookingSelectionRepository.save(selection);
+
+        return new TrainSelectionResponse(
+                selection.getId(),
+                selection.getScheduleId(),
+                selection.getBogieId(),
+                selection.getBogieNumber(),
+                selection.getCompartmentType());
     }
 }
