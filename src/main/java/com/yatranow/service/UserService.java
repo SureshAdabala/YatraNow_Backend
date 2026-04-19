@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import java.time.LocalDate;
@@ -33,20 +35,47 @@ public class UserService {
     private final TrainBookingSelectionRepository trainBookingSelectionRepository;
 
     public Page<SearchResponse> searchVehicles(SearchRequest request, Pageable pageable) {
-        Page<Schedule> schedules = scheduleRepository.searchSchedules(
+        Page<Schedule> schedulePage = scheduleRepository.searchSchedules(
                 request.fromLocation(),
                 request.toLocation(),
                 request.date(),
                 pageable);
 
-        return schedules.map(this::convertToSearchResponse);
+        List<Schedule> schedules = schedulePage.getContent();
+        if (schedules.isEmpty()) {
+            return schedulePage.map(this::convertToSearchResponse); // empty page, skip batch
+        }
+
+        // ── Batch-fetch all related entities in 3 flat IN queries ──────────────
+        Set<Long> vehicleIds = schedules.stream().map(Schedule::getVehicleId).collect(Collectors.toSet());
+        Set<Long> routeIds   = schedules.stream().map(Schedule::getRouteId).collect(Collectors.toSet());
+
+        Map<Long, Vehicle> vehicleMap = vehicleRepository.findAllById(vehicleIds)
+                .stream().collect(Collectors.toMap(Vehicle::getId, v -> v));
+        Map<Long, Route> routeMap = routeRepository.findAllById(routeIds)
+                .stream().collect(Collectors.toMap(Route::getId, r -> r));
+
+        Set<Long> ownerIds = vehicleMap.values().stream().map(Vehicle::getOwnerId).collect(Collectors.toSet());
+        Map<Long, Owner> ownerMap = ownerRepository.findAllById(ownerIds)
+                .stream().collect(Collectors.toMap(Owner::getId, o -> o));
+        // ───────────────────────────────────────────────────────────────────────
+
+        return schedulePage.map(s -> {
+            Vehicle v = vehicleMap.get(s.getVehicleId());
+            Route   r = routeMap.get(s.getRouteId());
+            Owner   o = v != null ? ownerMap.get(v.getOwnerId()) : null;
+            if (v == null) throw new ResourceNotFoundException("Vehicle not found: " + s.getVehicleId());
+            if (r == null) throw new ResourceNotFoundException("Route not found: " + s.getRouteId());
+            if (o == null) throw new ResourceNotFoundException("Owner not found: " + v.getOwnerId());
+            return buildSearchResponse(s, v, r, o);
+        });
     }
 
     public List<SearchResponse> getAllSchedules() {
-        // Only return schedules from today onwards
+        // Only return schedules from today onwards — eagerly loaded via JOIN FETCH
         List<Schedule> schedules = scheduleRepository.findSchedulesWithDetailsFromDate(LocalDate.now());
         return schedules.stream()
-                .map(this::convertToSearchResponse)
+                .map(this::convertEagerScheduleToSearchResponse)
                 .collect(Collectors.toList());
     }
 
@@ -58,21 +87,32 @@ public class UserService {
     }
 
     private SearchResponse convertToSearchResponse(Schedule schedule) {
+        Vehicle vehicle = vehicleRepository.findById(schedule.getVehicleId())
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
+
+        Route route = routeRepository.findById(schedule.getRouteId())
+                .orElseThrow(() -> new ResourceNotFoundException("Route not found"));
+
+        Owner owner = ownerRepository.findById(vehicle.getOwnerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Owner not found"));
+
+        return buildSearchResponse(schedule, vehicle, route, owner);
+    }
+
+    private SearchResponse convertEagerScheduleToSearchResponse(Schedule schedule) {
         Vehicle vehicle = schedule.getVehicle();
-        if (vehicle == null) {
-             throw new ResourceNotFoundException("Vehicle not found");
-        }
+        if (vehicle == null) throw new ResourceNotFoundException("Vehicle not found");
 
         Route route = schedule.getRoute();
-        if (route == null) {
-            throw new ResourceNotFoundException("Route not found");
-        }
+        if (route == null) throw new ResourceNotFoundException("Route not found");
 
         Owner owner = vehicle.getOwner();
-        if (owner == null) {
-            throw new ResourceNotFoundException("Owner not found");
-        }
+        if (owner == null) throw new ResourceNotFoundException("Owner not found");
 
+        return buildSearchResponse(schedule, vehicle, route, owner);
+    }
+
+    private SearchResponse buildSearchResponse(Schedule schedule, Vehicle vehicle, Route route, Owner owner) {
         return new SearchResponse(
                 schedule.getId(),
                 vehicle.getId(),
@@ -155,12 +195,46 @@ public class UserService {
 
     public List<BookingResponse> getMyBookings(Long userId) {
         List<Booking> bookings = bookingRepository.findByUserId(userId);
+        if (bookings.isEmpty()) return java.util.Collections.emptyList();
+
+        // ── Batch-fetch all related entities in 3 flat IN queries ──────────────
+        Set<Long> scheduleIds = bookings.stream().map(Booking::getScheduleId).collect(Collectors.toSet());
+        Map<Long, Schedule> scheduleMap = scheduleRepository.findAllById(scheduleIds)
+                .stream().collect(Collectors.toMap(Schedule::getId, s -> s));
+
+        Set<Long> vehicleIds = scheduleMap.values().stream().map(Schedule::getVehicleId).collect(Collectors.toSet());
+        Set<Long> routeIds   = scheduleMap.values().stream().map(Schedule::getRouteId).collect(Collectors.toSet());
+
+        Map<Long, Vehicle> vehicleMap = vehicleRepository.findAllById(vehicleIds)
+                .stream().collect(Collectors.toMap(Vehicle::getId, v -> v));
+        Map<Long, Route> routeMap = routeRepository.findAllById(routeIds)
+                .stream().collect(Collectors.toMap(Route::getId, r -> r));
+        // ───────────────────────────────────────────────────────────────────────
 
         return bookings.stream()
                 .map(booking -> {
-                    Schedule schedule = scheduleRepository.findById(booking.getScheduleId())
-                            .orElseThrow(() -> new ResourceNotFoundException("Schedule not found"));
-                    return buildBookingResponse(booking, schedule);
+                    Schedule schedule = scheduleMap.get(booking.getScheduleId());
+                    if (schedule == null) throw new ResourceNotFoundException("Schedule not found: " + booking.getScheduleId());
+                    Vehicle vehicle   = vehicleMap.get(schedule.getVehicleId());
+                    Route   route     = routeMap.get(schedule.getRouteId());
+                    if (vehicle == null) throw new ResourceNotFoundException("Vehicle not found");
+                    if (route == null)   throw new ResourceNotFoundException("Route not found");
+                    return new BookingResponse(
+                            booking.getId(),
+                            schedule.getId(),
+                            booking.getSeatNumber(),
+                            booking.getPassengerName(),
+                            booking.getPassengerAge(),
+                            booking.getPassengerGender(),
+                            vehicle.getName(),
+                            vehicle.getVehicleNumber(),
+                            route.getFromLocation(),
+                            route.getToLocation(),
+                            schedule.getDepartureTime().toString(),
+                            schedule.getArrivalTime().toString(),
+                            schedule.getPrice(),
+                            booking.getBookingDate(),
+                            booking.getStatus().name());
                 })
                 .collect(Collectors.toList());
     }

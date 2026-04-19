@@ -20,17 +20,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
         List<Schedule> findByScheduleDate(LocalDate scheduleDate);
 
-        @Query(value = """
+        @Query("""
                         SELECT s FROM Schedule s
-                        JOIN FETCH s.vehicle v
-                        JOIN FETCH s.route r
-                        JOIN FETCH v.owner o
-                        WHERE LOWER(r.fromLocation) = LOWER(:fromLocation)
-                        AND LOWER(r.toLocation) = LOWER(:toLocation)
-                        AND s.scheduleDate = :scheduleDate
-                        AND s.availableSeats > 0
-                        """, countQuery = """
-                        SELECT count(s) FROM Schedule s
                         JOIN s.route r
                         WHERE LOWER(r.fromLocation) = LOWER(:fromLocation)
                         AND LOWER(r.toLocation) = LOWER(:toLocation)
