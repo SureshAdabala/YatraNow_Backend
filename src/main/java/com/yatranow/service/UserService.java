@@ -201,6 +201,12 @@ public class UserService {
         List<Bogie> bogies = bogieRepository
                 .findByVehicleIdAndCompartmentTypeAndIsAvailableTrue(vehicleId, type);
 
+        // If no bogies exist for this train and compartment, seed default bogies instantly
+        if (bogies.isEmpty()) {
+            bogies = generateDefaultBogies(vehicleId, type);
+            bogieRepository.saveAll(bogies);
+        }
+
         return bogies.stream()
                 .map(b -> new BogieResponse(
                         b.getId(),
@@ -208,6 +214,41 @@ public class UserService {
                         b.getCompartmentType().name(),
                         b.getTotalSeats()))
                 .collect(Collectors.toList());
+    }
+
+    private List<Bogie> generateDefaultBogies(Long vehicleId, Bogie.CompartmentType type) {
+        List<Bogie> defaults = new java.util.ArrayList<>();
+        switch (type) {
+            case SECOND_SITTING:
+                defaults.add(createBogie(vehicleId, type, "D1", 90));
+                defaults.add(createBogie(vehicleId, type, "D2", 90));
+                defaults.add(createBogie(vehicleId, type, "D3", 90));
+                defaults.add(createBogie(vehicleId, type, "D4", 90));
+                break;
+            case SLEEPER:
+                defaults.add(createBogie(vehicleId, type, "S1", 72));
+                defaults.add(createBogie(vehicleId, type, "S2", 72));
+                defaults.add(createBogie(vehicleId, type, "S3", 72));
+                defaults.add(createBogie(vehicleId, type, "S4", 72));
+                defaults.add(createBogie(vehicleId, type, "S5", 72));
+                break;
+            case AC:
+                defaults.add(createBogie(vehicleId, type, "A1", 64));
+                defaults.add(createBogie(vehicleId, type, "A2", 64));
+                defaults.add(createBogie(vehicleId, type, "A3", 64));
+                break;
+        }
+        return defaults;
+    }
+
+    private Bogie createBogie(Long vehicleId, Bogie.CompartmentType type, String number, int seats) {
+        Bogie b = new Bogie();
+        b.setVehicleId(vehicleId);
+        b.setCompartmentType(type);
+        b.setBogieNumber(number);
+        b.setTotalSeats(seats);
+        b.setIsAvailable(true);
+        return b;
     }
 
     /**
