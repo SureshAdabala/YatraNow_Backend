@@ -23,40 +23,44 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("Checking Admin account configuration...");
 
-        String defaultEmail = "suresh@gmail.com";
-        String defaultPassword = "Suresh@55";
-        String defaultName = "Suresh";
+        try {
+            String defaultEmail = "suresh@gmail.com";
+            String defaultPassword = "Suresh@55";
+            String defaultName = "Suresh";
 
-        // Check if the default admin exists
-        Optional<Admin> existingAdmin = adminRepository.findByEmail(defaultEmail);
+            // Check if the default admin exists
+            Optional<Admin> existingAdmin = adminRepository.findByEmail(defaultEmail);
 
-        if (existingAdmin.isPresent()) {
-            log.info("Default admin ({}) exists. Updating password to ensure sync.", defaultEmail);
-            Admin admin = existingAdmin.get();
-            admin.setPassword(passwordEncoder.encode(defaultPassword));
-            adminRepository.save(admin);
-        } else {
-            log.info("Default admin ({}) not found. Creating new admin.", defaultEmail);
-            Admin newAdmin = new Admin();
-            newAdmin.setName(defaultName);
-            newAdmin.setEmail(defaultEmail);
-            newAdmin.setPassword(passwordEncoder.encode(defaultPassword));
-            newAdmin.setRole("ADMIN");
-            adminRepository.save(newAdmin);
-        }
+            if (existingAdmin.isPresent()) {
+                log.info("Default admin ({}) exists. Updating password to ensure sync.", defaultEmail);
+                Admin admin = existingAdmin.get();
+                admin.setPassword(passwordEncoder.encode(defaultPassword));
+                adminRepository.save(admin);
+            } else {
+                log.info("Default admin ({}) not found. Creating new admin.", defaultEmail);
+                Admin newAdmin = new Admin();
+                newAdmin.setName(defaultName);
+                newAdmin.setEmail(defaultEmail);
+                newAdmin.setPassword(passwordEncoder.encode(defaultPassword));
+                newAdmin.setRole("ADMIN");
+                adminRepository.save(newAdmin);
+            }
 
-        // Enforce "Only One Admin" rule
-        List<Admin> allAdmins = adminRepository.findAll();
-        if (allAdmins.size() > 1) {
-            log.warn("Multiple admins found ({}). Removing others to enforce single-admin policy.", allAdmins.size());
-            for (Admin admin : allAdmins) {
-                if (!admin.getEmail().equals(defaultEmail)) {
-                    log.info("Deleting extra admin: {}", admin.getEmail());
-                    adminRepository.delete(admin);
+            // Enforce "Only One Admin" rule
+            List<Admin> allAdmins = adminRepository.findAll();
+            if (allAdmins.size() > 1) {
+                log.warn("Multiple admins found ({}). Removing others to enforce single-admin policy.", allAdmins.size());
+                for (Admin admin : allAdmins) {
+                    if (!admin.getEmail().equals(defaultEmail)) {
+                        log.info("Deleting extra admin: {}", admin.getEmail());
+                        adminRepository.delete(admin);
+                    }
                 }
             }
-        }
 
-        log.info("Admin configuration completed. Default admin is ready.");
+            log.info("Admin configuration completed. Default admin is ready.");
+        } catch (Exception e) {
+            log.error("Failed to complete Admin account configuration: ", e);
+        }
     }
 }
